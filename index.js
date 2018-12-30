@@ -1,6 +1,5 @@
 "use strict";
 const { app, BrowserWindow, ipcMain } = require("electron"),
-      fs = require('fs'),
       PDFParser = require("pdf2json"),
       pdfParser = new PDFParser(this,1);
 
@@ -16,7 +15,11 @@ function createWindow() {
       console.error(errData.parserError);
     });
     pdfParser.on("pdfParser_dataReady", pdfData => {
-      event.sender.send('getFile',pdfParser.getRawTextContent().replace(/[\n\t]/g," ").split(" "));
+      const text = pdfParser.getRawTextContent()
+                    .replace(/[\n\t]/g," ")
+                    .replace(/\s\s+/g, ' ')
+                    .split(" ");
+      event.sender.send('getFile',text);
     });
     pdfParser.loadPDF(path);
   });

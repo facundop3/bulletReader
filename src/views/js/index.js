@@ -41,6 +41,7 @@
         break;
     }
   });
+
   $loadFileInput.addEventListener("change",function () {
     console.log(this.files[0].path);
     ipcRenderer.send('loadFile', this.files[0].path)
@@ -58,6 +59,10 @@
     this.style.display="none";
   });
 
+  window.addEventListener("wheel", (event) => {
+    $speedInput.value-=parseInt(event.wheelDelta/10);
+    speed = $speedInput.value;
+  });
   ipcRenderer.on('getFile', (event, arg) => {
     words = nextWord(arg);
     $buttonStart.style.display="";
