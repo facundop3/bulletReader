@@ -1,0 +1,24 @@
+{
+  "name": "bulletreader",
+  "version": "0.0.1",
+  "description": "Read faster ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/facundop3/bulletReader.git"
+  },
+  "author": "Juan Francisco Kurucz, Facundo Petre",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/facundop3/bulletReader/issues"
+  },
+  "homepage": "https://github.com/facundop3/bulletReader#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "electron": "^4.0.0"
+  }
+}
