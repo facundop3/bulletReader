@@ -17,7 +17,9 @@
     "url": "https://github.com/facundop3/bulletReader/issues"
   },
   "homepage": "https://github.com/facundop3/bulletReader#readme",
-  "dependencies": {},
+  "dependencies": {
+    "pdf2json": "^1.1.7"
+  },
   "devDependencies": {
     "electron": "^4.0.0"
   }

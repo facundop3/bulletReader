@@ -4,6 +4,7 @@ body{
 
 }
 #header-container{
+  -webkit-app-region: drag;
   height: 3em;
   color: #fff;
   display: flex;
@@ -31,4 +32,15 @@ body{
 }
 .uk-background-secondary{
   height: 100vh;
+}
+
+
+.buttons ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.buttons li {
+  display: inline;
 }
