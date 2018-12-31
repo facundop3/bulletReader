@@ -9,6 +9,7 @@
         $buttonLoadFile = document.getElementById("actionLoad"),
         $loadFileInput = document.getElementById("loadFile");
   let   playing = false,
+        loadedWords = null;
         words = null;
 
   let speed = $speedInput.value
@@ -25,6 +26,7 @@
         $buttonStart.textContent="Pause";
         playing=true;
         $buttonStop.style.display="";
+        words = nextWord(loadedWords);
         bulletRead(words);
         break;
       case "pause":
@@ -78,7 +80,7 @@
   });
 
   ipcRenderer.on('getFile', (event, arg) => {
-    words = nextWord(arg);
+    loadedWords = arg;
     $buttonStart.style.display="";
   })
 
