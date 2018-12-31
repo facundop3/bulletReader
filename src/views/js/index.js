@@ -1,3 +1,5 @@
+
+
 (function(){
   const { ipcRenderer } = require('electron'),
         $textContainer = document.getElementById("reader-text"),
@@ -15,24 +17,24 @@
     speed = this.value
   })
 
-  $buttonStart.addEventListener('click', function () {
-    const status = this.getAttribute("data-status");
+  function startHandler(){
+    const status = $buttonStart.getAttribute("data-status");
     switch(status){
       case "start":
-        this.setAttribute("data-status","pause");
-        this.textContent="Pause";
+        $buttonStart.setAttribute("data-status","pause");
+        $buttonStart.textContent="Pause";
         playing=true;
         $buttonStop.style.display="";
         bulletRead(words);
         break;
       case "pause":
-        this.setAttribute("data-status","resume");
-        this.textContent="Resume";
+        $buttonStart.setAttribute("data-status","resume");
+        $buttonStart.textContent="Resume";
         playing=false;
         break;
       case "resume":
-        this.setAttribute("data-status","pause");
-        this.textContent="Pause";
+        $buttonStart.setAttribute("data-status","pause");
+        $buttonStart.textContent="Pause";
         playing=true;
         bulletRead(words);
         break;
@@ -40,7 +42,9 @@
         console.log(status);
         break;
     }
-  });
+  }
+
+  $buttonStart.addEventListener('click', startHandler);
 
   $loadFileInput.addEventListener("change",function () {
     console.log(this.files[0].path);
@@ -63,6 +67,16 @@
     $speedInput.value-=parseInt(event.wheelDelta/10);
     speed = $speedInput.value;
   });
+
+  document.addEventListener('keypress', (event) => {
+    const keyName = event.key;
+    switch(keyName){
+      case " ":
+        startHandler();
+        break;
+    }
+  });
+
   ipcRenderer.on('getFile', (event, arg) => {
     words = nextWord(arg);
     $buttonStart.style.display="";
