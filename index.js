@@ -16,8 +16,7 @@ function createWindow() {
     });
     pdfParser.on("pdfParser_dataReady", pdfData => {
       const text = pdfParser.getRawTextContent()
-                    .replace(/[\n\t]/g," ")
-                    .replace(/\s\s+/g, ' ')
+                    .replace(/[\n\t\s]{1,}/g," ")
                     .split(" ");
       event.sender.send('getFile',text);
     });
