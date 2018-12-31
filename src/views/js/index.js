@@ -1,5 +1,3 @@
-
-
 (function(){
   const { ipcRenderer } = require('electron'),
         $textContainer = document.getElementById("reader-text"),
@@ -140,10 +138,14 @@
     onForward();
   });
 
-  window.addEventListener("wheel", (event) => {
-    $speedInput.value-=parseInt(event.wheelDelta/10);
+  function onSpeedChange(amount){
+    $speedInput.value-=parseInt(amount);
     speed = $speedInput.value;
     changeWord(words,currentIndex);
+  }
+
+  window.addEventListener("wheel", (event) => {
+    onSpeedChange(event.wheelDelta/10);
   });
 
   document.addEventListener('keydown', (event) => {
@@ -151,6 +153,12 @@
     switch(keyCode){
       case 32: //space
         startHandler();
+        break;
+      case 38: //up
+        onSpeedChange(10);
+        break;
+      case 40: //down
+        onSpeedChange(-10);
         break;
       case 37: //left
         onBackward();
