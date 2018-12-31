@@ -3,6 +3,8 @@
 (function(){
   const { ipcRenderer } = require('electron'),
         $textContainer = document.getElementById("reader-text"),
+        $nextTextContainer = document.getElementById("reader-nextText"),
+        $previousTextContainer = document.getElementById("reader-prevText"),
         $speedInput = document.getElementById("speedRange"),
         $buttonStart = document.getElementById("actionStart"),
         $buttonStop = document.getElementById("actionStop"),
@@ -10,7 +12,9 @@
         $buttonForward = document.getElementById("actionForward"),
         $buttonLoadFile = document.getElementById("actionLoad"),
         $loadFileInput = document.getElementById("loadFile"),
-        $pageNumberSpan = document.getElementById("pageNumber"),
+        $pageInfoDiv = document.getElementById("pageInfo"),
+        $pageNumberMaxSpan = document.getElementById("pageNumberMax"),
+        $pageNumberInput = document.getElementById("pageNumber"),
         $infoReaderSpan = document.getElementById("infoReader");
 
   let   playing = false,
@@ -28,7 +32,7 @@
     $buttonStart.setAttribute("data-status","resume");
     $buttonStart.textContent="Resume";
     playing=false;
-    $pageNumberSpan.style.display="";
+    $pageInfoDiv.style.display="";
     $infoReaderSpan.style.display="";
   }
 
@@ -56,7 +60,7 @@
     $buttonStop.style.display="";
     $buttonForward.style.display="";
     $buttonBack.style.display="";
-    $pageNumberSpan.style.display="none";
+    $pageInfoDiv.style.display="none";
     $infoReaderSpan.style.display="none";
 
     launchBulletReader();
@@ -65,27 +69,29 @@
   function onResume(){
     $buttonStart.setAttribute("data-status","pause");
     $buttonStart.textContent="Pause";
-    $pageNumberSpan.style.display="none";
+    $pageInfoDiv.style.display="none";
     $infoReaderSpan.style.display="none";
 
     launchBulletReader();
   }
 
   function startHandler(){
-    const status = $buttonStart.getAttribute("data-status");
-    switch(status){
-      case "start":
-        onStart();
-        break;
-      case "pause":
-        onPause();
-        break;
-      case "resume":
-        onResume();
-        break;
-      default:
-        console.log(status);
-        break;
+    if(words!== null){
+      const status = $buttonStart.getAttribute("data-status");
+      switch(status){
+        case "start":
+          onStart();
+          break;
+        case "pause":
+          onPause();
+          break;
+        case "resume":
+          onResume();
+          break;
+        default:
+          console.log(status);
+          break;
+      }
     }
   }
 
@@ -108,18 +114,30 @@
     this.style.display="none";
   });
 
-  $buttonBack.addEventListener('click', function () {
-    onPause();
-    if(currentIndex-1>=0){
-      changeWord(words,--currentIndex);
+  function onBackward(){
+    if(words!== null){
+      onPause();
+      if(currentIndex-1>=0){
+        changeWord(words,--currentIndex);
+      }
     }
+  }
+
+  $buttonBack.addEventListener('click', function () {
+    onBackward();
   });
 
-  $buttonForward.addEventListener('click', function () {
-    onPause();
-    if(currentIndex+1<words.length){
-      changeWord(words,++currentIndex);
+  function onForward(){
+    if(words!== null){
+      onPause();
+      if(currentIndex+1<words.length){
+        changeWord(words,++currentIndex);
+      }
     }
+  }
+
+  $buttonForward.addEventListener('click', function () {
+    onForward();
   });
 
   window.addEventListener("wheel", (event) => {
@@ -128,18 +146,32 @@
     changeWord(words,currentIndex);
   });
 
-  document.addEventListener('keypress', (event) => {
-    const keyName = event.key;
-    switch(keyName){
-      case " ":
+  document.addEventListener('keydown', (event) => {
+    const keyCode = event.keyCode;
+    switch(keyCode){
+      case 32: //space
         startHandler();
         break;
+      case 37: //left
+        onBackward();
+        break;
+      case 39: //right
+        onForward();
+        break;
     }
+  });
+
+  $pageNumberInput.addEventListener("change", function () {
+    changeWord(words,parseInt(this.value)-1);
   });
 
   ipcRenderer.on('getFile', (event, arg) => {
     words = arg;
     $buttonStart.style.display="";
+
+    $pageNumberInput.setAttribute("min",1);
+    $pageNumberInput.setAttribute("max",words.length);
+
     changeWord(words,0);
   })
 
@@ -180,10 +212,21 @@
     return response;
   }
 
+  function checkIndex(index,array){
+    return index>=0 && index<words.length;
+  }
+
   function changeWord(words,index){
-    if(words!==null && index>=0 && index<words.length){
+    if(words!==null && checkIndex(index,words)){
+      if(checkIndex(index-1,words)){
+        $previousTextContainer.innerText = words[index-1];
+      }
       $textContainer.innerText = words[index];
-      $pageNumberSpan.innerText = (index+1)+"/"+words.length;
+      if(checkIndex(index+1,words)){
+        $nextTextContainer.innerText = words[index+1];
+      }
+      $pageNumberInput.value = index+1;
+      $pageNumberMaxSpan.innerText = words.length;
       $infoReaderSpan.innerText = "At this speed rate it should take you "+calculateTimeLeft(words,index)+"to read the whole document";
     }
   }

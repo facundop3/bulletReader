@@ -36,8 +36,14 @@
     </div>
 
     <div id="reader-body">
-     <p id="reader-text">here you read</p>
-     <p id="pageNumber">0/0</p>
+     <table style="width:100%" border="0">
+       <tr>
+         <td width="33%" class="textBoxes conditionalText" style="display:none" id="reader-prevText">here</td>
+         <td width="33%" class="textBoxes" id="reader-text"> you </td>
+         <td width="33%" class="textBoxes conditionalText" style="display:none" id="reader-nextText">read</td>
+       </tr>
+     </table>
+     <p><center id="pageInfo"><input id="pageNumber" min="0" max="0" type="number" value="0" />/<span id="pageNumberMax">0</span></center></p>
      <p id="infoReader"></p>
     </div>
   </div>
