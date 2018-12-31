@@ -215,12 +215,12 @@
 
   function changeWord(words,index){
     if(words!==null && checkIndex(index,words)){
-      if(checkIndex(index-1,words)){
-        $previousTextContainer.innerText = words[index-1];
-      }
-      $textContainer.innerText = words[index];
-      if(checkIndex(index+1,words)){
-        $nextTextContainer.innerText = words[index+1];
+      let y = 0;
+      for(let i=index-4;i<index+4;i++){
+        if(checkIndex(i,words)){
+          document.getElementsByClassName("grid-item")[y].innerText = words[i];
+        }
+        y++;
       }
       $pageNumberInput.value = index+1;
       $pageNumberMaxSpan.innerText = words.length;

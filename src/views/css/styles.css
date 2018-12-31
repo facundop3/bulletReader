@@ -22,11 +22,13 @@ body{
 }
 
 .textBoxes{
-  font-size: 5vw;
+  font-size: 40px;
   font-family: Arial Black;
   overflow: inherit;
   text-overflow: inherit;
   white-space: normal;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .conditionalText{

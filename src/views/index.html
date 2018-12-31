@@ -34,15 +34,31 @@
         </ul>
       </div>
     </div>
-
+    <style>
+    .grid-container {
+      display: grid;
+      grid-template-columns: auto auto auto;
+      padding: 10px;
+    }
+    .grid-item {
+      padding: 20px;
+      font-size: 30px;
+      text-align: center;
+      width:500px;
+    }
+    </style>
     <div id="reader-body">
-     <table style="width:100%" border="0">
-       <tr>
-         <td width="33%" class="textBoxes conditionalText" style="display:none" id="reader-prevText">here</td>
-         <td width="33%" class="textBoxes" id="reader-text"> you </td>
-         <td width="33%" class="textBoxes conditionalText" style="display:none" id="reader-nextText">read</td>
-       </tr>
-     </table>
+      <div class="grid-container">
+        <div class="grid-item conditionalText">123</div>
+        <div class="grid-item conditionalText">3467</div>
+        <div class="grid-item conditionalText">5654734</div>
+        <div class="grid-item conditionalText" id="reader-prevText">hrthetrtrh</div>
+        <div class="grid-item" id="reader-text">here</div>
+        <div class="grid-item conditionalText" id="reader-nextText">h</div>
+        <div class="grid-item conditionalText">rtherthret</div>
+        <div class="grid-item conditionalText">rthertterttreerth</div>
+        <div class="grid-item conditionalText">ree</div>
+      </div>
      <p><center id="pageInfo"><input id="pageNumber" min="0" max="0" type="number" value="0" />/<span id="pageNumberMax">0</span></center></p>
      <p id="infoReader"></p>
     </div>
