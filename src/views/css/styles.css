@@ -13,14 +13,24 @@ body{
 }
 
 #reader-body{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 80%;
+  position: relative;
+  float: left;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+#reader-text{
   font-size: 40px;
   color: #fff;
   font-family: Arial Black;
 }
+
+#pageNumber{
+  display:block;
+}
+
 .speed-range-container{
   color: #fff;
   display: flex;

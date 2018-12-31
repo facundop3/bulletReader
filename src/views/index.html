@@ -19,7 +19,6 @@
     </div>
     <div class="speed-range-container">
       Set your speed: 🐢 <input type="range" min="80" max="500" value="250" class="slider" id="speedRange">&nbsp;⚡️
-      <hr />
       <div class="buttons">
         <ul>
           <li id="actionLoad">Load File
@@ -29,12 +28,17 @@
           <li> - </li>
           <li id="actionStart" data-status="start" style="display:none">Start</li>
           <li id="actionStop" style="display:none">Stop</li>
+          <li> - </li>
+          <li id="actionBack" style="display:none">Back</li>
+          <li id="actionForward" style="display:none">Forward</li>
         </ul>
       </div>
     </div>
 
     <div id="reader-body">
      <p id="reader-text">here you read</p>
+     <p id="pageNumber">0/0</p>
+     <p id="infoReader"></p>
     </div>
   </div>
   <script src="./js/exampleLecture.js"></script>
