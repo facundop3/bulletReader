@@ -35,19 +35,8 @@
   }
 
   function launchBulletReader(){
-    const wait=3;
-    let index=0;
-    $textContainer.innerText = "Starting in "+(wait-index)+" seconds";
-    const starting = setInterval(() => {
-      index++;
-      if(index===3){
-        playing=true;
-        clearInterval(starting);
-        bulletRead(words);
-      } else {
-        $textContainer.innerText = "Starting in "+(wait-index)+" seconds";
-      }
-    },1000);
+      playing=true;
+      bulletRead(words);
   }
 
   function onStart(){
