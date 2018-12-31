@@ -3,6 +3,7 @@ body{
   height: 100vh;
   overflow: hidden;
 }
+
 #header-container{
   -webkit-app-region: drag;
   height: 3em;
@@ -13,12 +14,12 @@ body{
 }
 
 #reader-body{
-  position: relative;
-  float: left;
-  top: 40%;
+  display: flex;
+  flex-direction: column;
   width:100%;
-  transform: translate(0, -50%);
-  text-align: center;
+  height: 100%;
+  align-items: center;
+  justify-content: center; 
 }
 
 .textBoxes{
@@ -80,4 +81,9 @@ body{
 
 .buttons li {
   display: inline;
+}
+.grid-item{
+  min-width: 300px;
+  font-size: 2em;
+  text-align: center;
 }

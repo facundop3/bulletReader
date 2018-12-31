@@ -17,9 +17,8 @@
 
   let   playing = false,
         words = null,
-        currentIndex = 0;
-
-  let speed = $speedInput.value
+        currentIndex = 0,
+        speed = $speedInput.value;
 
   $speedInput.addEventListener('change', function () {
     speed = this.value;
@@ -210,7 +209,7 @@
   }
 
   function checkIndex(index,array){
-    return index>=0 && index<words.length;
+    return Boolean(array[index]);
   }
 
   function changeWord(words,index){
@@ -222,6 +221,7 @@
         }
         y++;
       }
+      // }
       $pageNumberInput.value = index+1;
       $pageNumberMaxSpan.innerText = words.length;
       $infoReaderSpan.innerText = "At this speed rate it should take you "+calculateTimeLeft(words,index)+"to read the whole document";
