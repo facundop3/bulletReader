@@ -4,15 +4,6 @@ body{
   overflow: hidden;
 }
 
-#header-container{
-  -webkit-app-region: drag;
-  height: 3em;
-  color: #fff;
-  display: flex;
-  align-items: center;
-  padding: 0 10px;
-}
-
 #reader-body{
   display: flex;
   flex-direction: column;
@@ -38,6 +29,7 @@ body{
 
 #reader-text{
   color: #fff;
+  font-weight: bold;
 }
 
 #pageNumber{
@@ -60,13 +52,16 @@ body{
 }
 
 .speed-range-container{
-  color: #fff;
+  color:black;
   display: flex;
   align-items: center;
   padding: 0 20px;
 }
 #speedRange{
   transform: rotate(180deg);
+  max-width: 150px;
+  max-height: 3em;
+  border: 0;
 }
 .uk-background-secondary{
   height: 100vh;
@@ -86,4 +81,10 @@ body{
   min-width: 300px;
   font-size: 2em;
   text-align: center;
+}
+.reader-header{
+  padding: 0 10px;
+}
+.main-container{
+  height: 100%;
 }

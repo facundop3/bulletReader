@@ -27,7 +27,7 @@
 
   function onPause(){
     $buttonStart.setAttribute("data-status","resume");
-    $buttonStart.textContent="Resume";
+    $buttonStart.querySelector('i').innerText = "play_arrow"
     playing=false;
     $pageInfoDiv.style.display="";
     $infoReaderSpan.style.display="";
@@ -40,23 +40,21 @@
 
   function onStart(){
     $buttonStart.setAttribute("data-status","pause");
-    $buttonStart.textContent="Pause";
+    $buttonStart.querySelector('i').innerText = "pause"
     currentIndex=0;
-
     $buttonStop.style.display="";
     $buttonForward.style.display="";
     $buttonBack.style.display="";
     $pageInfoDiv.style.display="none";
     $infoReaderSpan.style.display="none";
-
     launchBulletReader();
   }
 
   function onResume(){
     $buttonStart.setAttribute("data-status","pause");
-    $buttonStart.textContent="Pause";
-    $pageInfoDiv.style.display="none";
-    $infoReaderSpan.style.display="none";
+    $buttonStart.querySelector('i').innerText = "pause";
+    $pageInfoDiv.style.display = "none";
+    $infoReaderSpan.style.display = "none";
 
     launchBulletReader();
   }
@@ -94,10 +92,10 @@
 
   $buttonStop.addEventListener('click', function () {
     $buttonStart.setAttribute("data-status","start");
-    $buttonStart.textContent="Start";
-    playing=false;
-    currentIndex=0;
-    this.style.display="none";
+    $buttonStart.querySelector('i').innerText = "play_arrow";
+    playing = false;
+    currentIndex = 0;
+    this.style.display = "none";
   });
 
   function onBackward(){
@@ -221,7 +219,6 @@
         }
         y++;
       }
-      // }
       $pageNumberInput.value = index+1;
       $pageNumberMaxSpan.innerText = words.length;
       $infoReaderSpan.innerText = "At this speed rate it should take you "+calculateTimeLeft(words,index)+"to read the whole document";
