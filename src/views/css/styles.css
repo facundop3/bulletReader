@@ -11,6 +11,7 @@ body{
   height: 100%;
   align-items: center;
   justify-content: center; 
+  /* border: 3px solid red; */
 }
 
 .textBoxes{
@@ -87,4 +88,16 @@ body{
 }
 .main-container{
   height: 100%;
+}
+#myChart{
+  max-width: 200px;
+}
+.chart{
+  /* border: 3px solid green; */
+}
+.content-container{
+  display: flex;
+}
+#pageNumber{
+  color: black;
 }

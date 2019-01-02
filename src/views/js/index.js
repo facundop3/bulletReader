@@ -1,4 +1,4 @@
-(function(){
+(function(graph){
   const { ipcRenderer } = require('electron'),
         $textContainer = document.getElementById("reader-text"),
         $nextTextContainer = document.getElementById("reader-nextText"),
@@ -176,6 +176,7 @@
         return;
       }
       changeWord(words,currentIndex);
+      graph.update(currentIndex,words.length)
       setTimeout(()=>{
         currentIndex++;
         return bulletRead(words)
@@ -225,4 +226,4 @@
     }
   }
 
-})()
+})(graph)
