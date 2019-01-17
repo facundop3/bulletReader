@@ -60,7 +60,6 @@
   }
 
   function startHandler(){
-    document.querySelector("#selectThis").select();
     if(words!== null){
       const status = $buttonStart.getAttribute("data-status");
       switch(status){
@@ -139,6 +138,7 @@
     const keyCode = event.keyCode;
     switch(keyCode){
       case 32: //space
+        event.preventDefault();
         startHandler();
         break;
       case 38: //up
