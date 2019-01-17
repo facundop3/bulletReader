@@ -22,6 +22,7 @@
 
   $speedInput.addEventListener('change', function () {
     speed = this.value;
+    ipcRenderer.send('onSpeedChange', speed);
     changeWord(words,currentIndex);
   })
 
@@ -131,6 +132,8 @@
     $speedInput.value-=parseInt(amount);
     speed = $speedInput.value;
     changeWord(words,currentIndex);
+
+    ipcRenderer.send('onSpeedChange', speed);
   }
 
   window.addEventListener("wheel", (event) => {

@@ -16,6 +16,10 @@ function createWindow() {
     actualReader.saveData();
   });
 
+  ipcMain.on('onSpeedChange', (event, speed) => {
+    actualReader.speed=speed;
+  });
+
   ipcMain.on('updateWordIndex', (event, wordIndex) => {
     actualReader.wordIndex=wordIndex;
   });
