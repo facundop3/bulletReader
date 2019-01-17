@@ -226,4 +226,19 @@
     }
   }
 
+  /* Set the width of the sidebar to 250px and the left margin of the page content to 250px */
+  document.querySelector("#openSideBar").onclick = function() {
+    const status = this.getAttribute("data-status");
+    console.log(status);
+    if(status === "closed" || status === null){
+      this.setAttribute("data-status","opened");
+      document.getElementById("sidebar").style.width = "250px";
+      document.getElementById("openSideBar").style.marginLeft = "230px";
+    } else {
+      this.setAttribute("data-status","closed");
+      document.getElementById("sidebar").style.width = "0";
+      document.getElementById("openSideBar").style.marginLeft = "-20px";
+    }
+  }
+
 })(graph)
