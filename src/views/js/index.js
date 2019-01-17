@@ -60,6 +60,7 @@
   }
 
   function startHandler(){
+    document.querySelector("#selectThis").select();
     if(words!== null){
       const status = $buttonStart.getAttribute("data-status");
       switch(status){
@@ -240,5 +241,4 @@
       document.getElementById("openSideBar").style.marginLeft = "-20px";
     }
   }
-
 })(graph)
