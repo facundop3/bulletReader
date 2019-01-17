@@ -10,7 +10,7 @@ body{
   width:100%;
   height: 100%;
   align-items: center;
-  justify-content: center; 
+  justify-content: center;
   /* border: 3px solid red; */
 }
 
@@ -88,6 +88,7 @@ body{
 }
 .main-container{
   height: 100%;
+  background-color: #191a1a;
 }
 #myChart{
   max-width: 200px;
