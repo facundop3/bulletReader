@@ -9,6 +9,7 @@ module.exports = class Read {
     this.path = path;
     this.text = "";
     this.wordIndex = 0;
+    this.speed = 0;
 
     if(!data.hasOwnProperty(this.path)){
       const pdfParser =  new PDFParser(this,1);
@@ -36,6 +37,7 @@ module.exports = class Read {
     data[this.path].text = this.text;
     data[this.path].actualWord = this.wordIndex;
     data[this.path].totalWords = this.text.length;
+    data[this.path].speed = this.speed;
     fs.writeFileSync(__dirname+"/data.json", JSON.stringify(data));
   }
 }
