@@ -36,8 +36,6 @@ module.exports = class Read {
     data[this.path].text = this.text;
     data[this.path].actualWord = this.wordIndex;
     data[this.path].totalWords = this.text.length;
-
-    console.log(data);
     fs.writeFileSync(__dirname+"/data.json", JSON.stringify(data));
   }
 }
