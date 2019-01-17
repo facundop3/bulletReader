@@ -11,6 +11,10 @@ function createWindow() {
   ipcMain.on('loadFile', (event, path) => {
     new Read(path,event);
   });
+
+  ipcMain.on('saveData', (event, wordIndex) => {
+    Read.saveData(wordIndex);
+  });
 }
 
 app.on("ready", createWindow);

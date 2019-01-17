@@ -83,7 +83,7 @@
 
   $loadFileInput.addEventListener("change",function () {
     words = null;
-    ipcRenderer.send('loadFile', this.files[0].path)
+    ipcRenderer.send('loadFile', this.files[0].path);
   });
 
   $buttonLoadFile.addEventListener('click', function () {
@@ -96,6 +96,9 @@
     playing = false;
     currentIndex = 0;
     this.style.display = "none";
+
+
+    ipcRenderer.send('saveData', document.querySelector("#pageNumber").value);
   });
 
   function onBackward(){
@@ -159,10 +162,8 @@
   $pageNumberInput.addEventListener("change", function () {
     changeWord(words,parseInt(this.value)-1);
   });
-  let actualReader = null;
-  ipcRenderer.on('getFile', (event, readObject) => {
-    actualReader = readObject;
-    words = readObject.text;
+  ipcRenderer.on('getFile', (event, readWords) => {
+    words = readWords;
     $buttonStart.style.display="";
 
     $pageNumberInput.setAttribute("min",1);
