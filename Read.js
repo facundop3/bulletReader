@@ -26,7 +26,7 @@ module.exports = class Read {
     } else {
         this.text = data[this.path].text;
         this.wordIndex = data[this.path].actualWord;
-        event.sender.send('getFile',this.text,this.wordIndex);
+        event.sender.send('getFile',this.text,parseInt(this.wordIndex));
     }
   }
 

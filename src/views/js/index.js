@@ -42,7 +42,6 @@
   function onStart(){
     $buttonStart.setAttribute("data-status","pause");
     $buttonStart.querySelector('i').innerText = "pause"
-    currentIndex=0;
     $buttonStop.style.display="";
     $buttonForward.style.display="";
     $buttonBack.style.display="";
@@ -169,9 +168,9 @@
     words = readWords;
     $buttonStart.style.display="";
 
-    $pageNumberInput.setAttribute("min",index+1);
+    $pageNumberInput.setAttribute("min",parseInt(index)+1);
     $pageNumberInput.setAttribute("max",words.length);
-    currentIndex=index;
+    currentIndex=parseInt(index);
     changeWord(words,index);
   })
 
@@ -218,15 +217,19 @@
   }
 
   function changeWord(words,index){
+    console.log(index,currentIndex);
     if(words!==null && checkIndex(index,words)){
       let y = 0;
       for(let i=index-4;i<index+4;i++){
         if(checkIndex(i,words)){
+          if(document.getElementsByClassName("grid-item").length<=y){
+            break;
+          }
           document.getElementsByClassName("grid-item")[y].innerText = words[i];
+          y++;
         }
-        y++;
       }
-      $pageNumberInput.value = index+1;
+      $pageNumberInput.value = parseInt(index)+1;
       $pageNumberMaxSpan.innerText = words.length;
       $infoReaderSpan.innerText = "At this speed rate it should take you "+calculateTimeLeft(words,index)+"to read the whole document";
       ipcRenderer.send('updateWordIndex', document.querySelector("#pageNumber").value);
