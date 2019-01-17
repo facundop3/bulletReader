@@ -29,7 +29,9 @@ module.exports = class Read {
       data[actualReader.path]={};
     }
     data[actualReader.path].text = actualReader.text;
-    data[actualReader.path].actualWord = wordNumber;
+    if(wordNumber !== null){
+      data[actualReader.path].actualWord = wordNumber;
+    }
     data[actualReader.path].totalWords = actualReader.text.length;
 
     console.log(data);

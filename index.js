@@ -15,6 +15,10 @@ function createWindow() {
   ipcMain.on('saveData', (event, wordIndex) => {
     Read.saveData(wordIndex);
   });
+
+  mainWindow.on('close', function() {
+    Read.saveData(null);
+  });
 }
 
 app.on("ready", createWindow);
