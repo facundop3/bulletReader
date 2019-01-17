@@ -8,24 +8,41 @@ function createWindow() {
   win.loadFile("./src/views/index.html");
   win.openDevTools();
 
-  ipcMain.on('loadFile', (event, path) => {
+  ipcMain.on('loadFile', async (event, path) => {
     actualReader=new Read(path,event);
+    await actualReader.loadPDF();
+    event.sender.send('getFile',actualReader.text,actualReader.wordIndex);
+  });
+
+  ipcMain.on('reloadFile', async (event, path) => {
+    if(actualReader!==null){
+      await actualReader.loadPDF(true);
+      event.sender.send('getFile',actualReader.text,actualReader.wordIndex);
+    }
   });
 
   ipcMain.on('saveData', (event, wordIndex) => {
-    actualReader.saveData();
+    if(actualReader!==null){
+      actualReader.saveData();
+    }
   });
 
   ipcMain.on('onSpeedChange', (event, speed) => {
-    actualReader.speed=speed;
+    if(actualReader!==null){
+      actualReader.speed=speed;
+    }
   });
 
   ipcMain.on('updateWordIndex', (event, wordIndex) => {
-    actualReader.wordIndex=wordIndex;
+    if(actualReader!==null){
+      actualReader.wordIndex=wordIndex;
+    }
   });
 
   win.on('close', function() {
-    actualReader.saveData();
+    if(actualReader!==null){
+      actualReader.saveData();
+    }
   });
 }
 
