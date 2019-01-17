@@ -7,19 +7,26 @@ const PDFParser = require("pdf2json"),
 module.exports = class Read {
   constructor(path,event){
     this.path = path;
-    this.pdfParser =  new PDFParser(this,1);
     this.text = "";
-    this.pdfParser.on("pdfParser_dataError", (errData) => {
-      console.error(errData.parserError);
-    });
-    this.pdfParser.on("pdfParser_dataReady", (pdfData) => {
-      this.text = this.pdfParser.getRawTextContent()
-                    .replace(/[\n\t\s]{1,}/g," ")
-                    .split(" ");
-      event.sender.send('getFile',this.text);
-    });
-    this.pdfParser.loadPDF(this.path);
     this.wordIndex = 0;
+
+    if(!data.hasOwnProperty(this.path)){
+      this.pdfParser =  new PDFParser(this,1);
+      this.pdfParser.on("pdfParser_dataError", (errData) => {
+        console.error(errData.parserError);
+      });
+      this.pdfParser.on("pdfParser_dataReady", (pdfData) => {
+        this.text = this.pdfParser.getRawTextContent()
+                      .replace(/[\n\t\s]{1,}/g," ")
+                      .split(" ");
+        event.sender.send('getFile',this.text,this.wordIndex);
+      });
+      this.pdfParser.loadPDF(this.path);
+    } else {
+        this.text = data[this.path].text;
+        this.wordIndex = data[this.path].actualWord;
+        event.sender.send('getFile',this.text,this.wordIndex);
+    }
   }
 
   saveData(){

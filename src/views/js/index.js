@@ -162,14 +162,15 @@
   $pageNumberInput.addEventListener("change", function () {
     changeWord(words,parseInt(this.value)-1);
   });
-  ipcRenderer.on('getFile', (event, readWords) => {
+  ipcRenderer.on('getFile', (event, readWords, index) => {
+    console.log(index);
     words = readWords;
     $buttonStart.style.display="";
 
-    $pageNumberInput.setAttribute("min",1);
+    $pageNumberInput.setAttribute("min",index+1);
     $pageNumberInput.setAttribute("max",words.length);
-
-    changeWord(words,0);
+    currentIndex=index;
+    changeWord(words,index);
   })
 
   function bulletRead(words){
