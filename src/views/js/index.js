@@ -226,6 +226,7 @@
       $pageNumberInput.value = index+1;
       $pageNumberMaxSpan.innerText = words.length;
       $infoReaderSpan.innerText = "At this speed rate it should take you "+calculateTimeLeft(words,index)+"to read the whole document";
+      ipcRenderer.send('updateWordIndex', document.querySelector("#pageNumber").value);
     }
   }
 

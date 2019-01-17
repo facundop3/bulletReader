@@ -4,8 +4,6 @@ const PDFParser = require("pdf2json"),
       fs = require("fs"),
       data = require("./data.json");
 
-let actualReader = null;
-
 module.exports = class Read {
   constructor(path,event){
     this.path = path;
@@ -21,18 +19,16 @@ module.exports = class Read {
       event.sender.send('getFile',this.text);
     });
     this.pdfParser.loadPDF(this.path);
-    actualReader = this;
+    this.wordIndex = 0;
   }
 
-  static saveData(wordNumber){
-    if (!data.hasOwnProperty(actualReader.path)) {
-      data[actualReader.path]={};
+  saveData(){
+    if (!data.hasOwnProperty(this.path)) {
+      data[this.path]={};
     }
-    data[actualReader.path].text = actualReader.text;
-    if(wordNumber !== null){
-      data[actualReader.path].actualWord = wordNumber;
-    }
-    data[actualReader.path].totalWords = actualReader.text.length;
+    data[this.path].text = this.text;
+    data[this.path].actualWord = this.wordIndex;
+    data[this.path].totalWords = this.text.length;
 
     console.log(data);
     fs.writeFileSync(__dirname+"/data.json", JSON.stringify(data));

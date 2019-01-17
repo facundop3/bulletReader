@@ -4,20 +4,24 @@ const { app, BrowserWindow, ipcMain } = require("electron"),
 
 function createWindow() {
   const win = new BrowserWindow({ width: 800, height: 600, frame:false });
-
+  let actualReader=null;
   win.loadFile("./src/views/index.html");
   win.openDevTools();
 
   ipcMain.on('loadFile', (event, path) => {
-    new Read(path,event);
+    actualReader=new Read(path,event);
   });
 
   ipcMain.on('saveData', (event, wordIndex) => {
-    Read.saveData(wordIndex);
+    actualReader.saveData();
   });
 
-  mainWindow.on('close', function() {
-    Read.saveData(null);
+  ipcMain.on('updateWordIndex', (event, wordIndex) => {
+    actualReader.wordIndex=wordIndex;
+  });
+
+  win.on('close', function() {
+    actualReader.saveData();
   });
 }
 
