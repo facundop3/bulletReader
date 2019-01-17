@@ -159,9 +159,10 @@
   $pageNumberInput.addEventListener("change", function () {
     changeWord(words,parseInt(this.value)-1);
   });
-
-  ipcRenderer.on('getFile', (event, arg) => {
-    words = arg;
+  let actualReader = null;
+  ipcRenderer.on('getFile', (event, readObject) => {
+    actualReader = readObject;
+    words = readObject.text;
     $buttonStart.style.display="";
 
     $pageNumberInput.setAttribute("min",1);
