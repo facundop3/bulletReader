@@ -1,5 +1,5 @@
 (function(graph){
-  const { ipcRenderer } = require('electron'),
+  const { ipcRenderer } = require("electron"),
         $textContainer = document.getElementById("reader-text"),
         $nextTextContainer = document.getElementById("reader-nextText"),
         $previousTextContainer = document.getElementById("reader-prevText"),
@@ -20,15 +20,15 @@
         currentIndex = 0,
         speed = $speedInput.value;
 
-  $speedInput.addEventListener('change', function () {
+  $speedInput.addEventListener("change", function () {
     speed = this.value;
-    ipcRenderer.send('onSpeedChange', speed);
+    ipcRenderer.send("onSpeedChange", speed);
     changeWord(words,currentIndex);
   })
 
   function onPause(){
     $buttonStart.setAttribute("data-status","resume");
-    $buttonStart.querySelector('i').innerText = "play_arrow"
+    $buttonStart.querySelector("i").innerText = "play_arrow"
     playing=false;
     $pageInfoDiv.style.display="";
     $infoReaderSpan.style.display="";
@@ -41,7 +41,7 @@
 
   function onStart(){
     $buttonStart.setAttribute("data-status","pause");
-    $buttonStart.querySelector('i').innerText = "pause"
+    $buttonStart.querySelector("i").innerText = "pause"
     $buttonStop.style.display="";
     $buttonForward.style.display="";
     $buttonBack.style.display="";
@@ -52,7 +52,7 @@
 
   function onResume(){
     $buttonStart.setAttribute("data-status","pause");
-    $buttonStart.querySelector('i').innerText = "pause";
+    $buttonStart.querySelector("i").innerText = "pause";
     $pageInfoDiv.style.display = "none";
     $infoReaderSpan.style.display = "none";
 
@@ -79,26 +79,26 @@
     }
   }
 
-  $buttonStart.addEventListener('click', startHandler);
+  $buttonStart.addEventListener("click", startHandler);
 
   $loadFileInput.addEventListener("change",function () {
     words = null;
-    ipcRenderer.send('loadFile', this.files[0].path);
+    ipcRenderer.send("loadFile", this.files[0].path);
   });
 
-  $buttonLoadFile.addEventListener('click', function () {
+  $buttonLoadFile.addEventListener("click", function () {
     $loadFileInput.click();
   });
 
-  $buttonStop.addEventListener('click', function () {
+  $buttonStop.addEventListener("click", function () {
     $buttonStart.setAttribute("data-status","start");
-    $buttonStart.querySelector('i').innerText = "play_arrow";
+    $buttonStart.querySelector("i").innerText = "play_arrow";
     playing = false;
     currentIndex = 0;
     this.style.display = "none";
 
 
-    ipcRenderer.send('saveData', document.querySelector("#pageNumber").value);
+    ipcRenderer.send("saveData", document.querySelector("#pageNumber").value);
   });
 
   function onBackward(){
@@ -110,7 +110,7 @@
     }
   }
 
-  $buttonBack.addEventListener('click', function () {
+  $buttonBack.addEventListener("click", function () {
     onBackward();
   });
 
@@ -123,7 +123,7 @@
     }
   }
 
-  $buttonForward.addEventListener('click', function () {
+  $buttonForward.addEventListener("click", function () {
     onForward();
   });
 
@@ -132,14 +132,14 @@
     speed = $speedInput.value;
     changeWord(words,currentIndex);
 
-    ipcRenderer.send('onSpeedChange', speed);
+    ipcRenderer.send("onSpeedChange", speed);
   }
 
   window.addEventListener("wheel", (event) => {
     onSpeedChange(event.wheelDelta/10);
   });
 
-  document.addEventListener('keydown', (event) => {
+  document.addEventListener("keydown", (event) => {
     const keyCode = event.keyCode;
     switch(keyCode){
       case 32: //space
@@ -164,7 +164,7 @@
   $pageNumberInput.addEventListener("change", function () {
     changeWord(words,parseInt(this.value)-1);
   });
-  ipcRenderer.on('getFile', (event, readWords, index) => {
+  ipcRenderer.on("getFile", (event, readWords, index) => {
     words = readWords;
     $buttonStart.style.display="";
 
@@ -232,7 +232,7 @@
       $pageNumberInput.value = parseInt(index)+1;
       $pageNumberMaxSpan.innerText = words.length;
       $infoReaderSpan.innerText = "At this speed rate it should take you "+calculateTimeLeft(words,index)+"to read the whole document";
-      ipcRenderer.send('updateWordIndex', document.querySelector("#pageNumber").value);
+      ipcRenderer.send("updateWordIndex", document.querySelector("#pageNumber").value);
     }
   }
 

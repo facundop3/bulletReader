@@ -8,38 +8,38 @@ function createWindow() {
   win.loadFile("./src/views/index.html");
   win.openDevTools();
 
-  ipcMain.on('loadFile', async (event, path) => {
+  ipcMain.on("loadFile", async (event, path) => {
     actualReader=new Read(path,event);
     await actualReader.loadPDF();
-    event.sender.send('getFile',actualReader.text,actualReader.wordIndex);
+    event.sender.send("getFile",actualReader.text,actualReader.wordIndex);
   });
 
-  ipcMain.on('reloadFile', async (event, path) => {
+  ipcMain.on("reloadFile", async (event, path) => {
     if(actualReader!==null){
       await actualReader.loadPDF(true);
-      event.sender.send('getFile',actualReader.text,actualReader.wordIndex);
+      event.sender.send("getFile",actualReader.text,actualReader.wordIndex);
     }
   });
 
-  ipcMain.on('saveData', (event, wordIndex) => {
+  ipcMain.on("saveData", (event, wordIndex) => {
     if(actualReader!==null){
       actualReader.saveData();
     }
   });
 
-  ipcMain.on('onSpeedChange', (event, speed) => {
+  ipcMain.on("onSpeedChange", (event, speed) => {
     if(actualReader!==null){
       actualReader.speed=speed;
     }
   });
 
-  ipcMain.on('updateWordIndex', (event, wordIndex) => {
+  ipcMain.on("updateWordIndex", (event, wordIndex) => {
     if(actualReader!==null){
       actualReader.wordIndex=wordIndex;
     }
   });
 
-  win.on('close', function() {
+  win.on("close", function() {
     if(actualReader!==null){
       actualReader.saveData();
     }

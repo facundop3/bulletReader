@@ -1,33 +1,33 @@
 const  graph = (function(){
-    'use strict';
+    "use strict";
     function generate(){
       const context = document.getElementById("myChart").getContext("2d"),
             data = {
-              labels: ['Read', 'To read'],
+              labels: ["Read", "To read"],
               datasets: [{
-                  label:'Reading progress:',
+                  label:"Reading progress:",
                   data: [0, 100],
                   backgroundColor:[
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)'
+                    "rgba(255, 99, 132, 0.2)",
+                    "rgba(54, 162, 235, 0.2)"
                   ],
                   borderColor: [
-                    'rgba(255,99,132,1)',
-                    'rgba(54, 162, 235, 1)'
+                    "rgba(255,99,132,1)",
+                    "rgba(54, 162, 235, 1)"
                   ]
               }],
               labels: [
-                  'read',
-                  'to-read',
+                  "read",
+                  "to-read",
               ]
           }
 
       return  new Chart(context, {
-        type: 'doughnut',
+        type: "doughnut",
         data: data,
 
         borderWidth: 1,
-        options:{  
+        options:{
           legend: {
             labels: {
                 fontColor: "white",

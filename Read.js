@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 const PDFParser = require("pdf2json"),
       fs = require("fs"),
