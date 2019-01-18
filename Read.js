@@ -1,8 +1,12 @@
 "use strict";
 
 const PDFParser = require("pdf2json"),
-      fs = require("fs"),
-      data = require("./data.json");
+      fs = require("fs");
+
+if (!fs.existsSync("./data.json")) {
+    fs.writeFileSync(__dirname+"/data.json", JSON.stringify({}));
+}
+const data = require("./data.json");
 
 module.exports = class Read {
   constructor(path,event){
